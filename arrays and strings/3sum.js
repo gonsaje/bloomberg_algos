@@ -37,38 +37,32 @@
  * @return {number[][]}
  */
 var threeSum = function(nums) {
-    nums.sort();
-    let result = [];
-    for (let i = 0; i < nums.length; i++) {
-        if (nums[i] > 0) {
-            break;
-        } else if (i === 0 || nums[i - 1] !== nums[i]) {
-            pairSum(nums, i, result);
-        }
-    }
+    console.log(nums.sort((a,b) => a-b));
+    let triplets = [];
     
-    return result;
-};
-
-function pairSum(nums, i, result) {
-    let low = i + 1;
-    let high = nums.length - 1;
-    
-    while (low < high) {
-        let sum = nums[i] + nums[low] + nums[high];
+    for (let i = 0; i < nums.length - 2; i++) {
+        let curr = nums[i];
+        let left = i + 1;
+        let right = nums.length - 1;
+        if (i > 0 && nums[i] === nums[i - 1]) continue;
         
-        if (sum < 0) {
-            low += 1;
-        } else if (sum > 0) {
-            high -= 1;
-        } else {
-            result.push([nums[i], nums[low], nums[high]]);
-            low += 1;
-            high -= 1;
-            while (low < high && nums[low] === nums[low - 1]) {
-                low += 1;
+        while (left < right) {
+            let sum = curr + nums[left] + nums[right];
+            let triplet = [curr, nums[left], nums[right]];
+            
+            if (sum < 0) {
+               left++; 
+            } else if (sum > 0){
+                right--;
+            } else if (sum === 0) {
+                triplets.push(triplet);
+                while (nums[left] === nums[left + 1]) left++;
+                while (nums[right] === nums[right - 1]) right--;
+                left++;
+                right--;
             }
         }
-        
     }
-}
+    
+    return triplets;
+};
