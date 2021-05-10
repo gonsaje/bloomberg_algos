@@ -79,3 +79,72 @@ var addTwoNumbers = function(l1, l2) {
     
     return head.next;
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+ var reverseList = function(head) {
+    let currentNode = head;
+    let previousNode = null;
+    
+    while (currentNode !== null) {
+        
+        let temp = currentNode.next;
+        currentNode.next = previousNode;
+        previousNode = currentNode;
+        currentNode = temp;
+               
+    }
+    
+    return previousNode;
+};
+
+
+var mergeTwoLists = function(l1, l2) {
+    if (!l1) {
+        return l2;
+    } else if (!l2) {
+        return l1;
+    }
+
+    let head = null;
+    if (l1.val <= l2.val) {
+        head = l1;
+        l1 = l1.next;
+    } else {
+        head = l2;
+        l2 = l2.next;
+    }
+
+    let tail = head;
+
+    while (l1 && l2) {
+        let temp = null;
+        if (l1.val <= l2.val) {
+            temp = l1;
+            l1 = l1.next;
+        } else {
+            temp = l2;
+            l2 = l2.next;
+        }
+
+        tail.next = temp;
+        tail = temp;
+    }
+
+    if (l1) {
+        tail.next = l1;
+    } else if (l2) {
+        tail.next = l2;
+    }
+
+    return head;
+};

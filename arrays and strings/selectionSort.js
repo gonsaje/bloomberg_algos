@@ -7,7 +7,7 @@
 
 // big O
 
-function selectionShort(arr) { // [5, 6, 4]
+function selectionSort(arr) { // [5, 6, 4]
     for (let i = 0; i < arr.length; i++) {
         let min = arr[i]; // 4
         let idx = 0;
